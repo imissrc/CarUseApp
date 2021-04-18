@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_bg_dark"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity" android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/Infos"
+        android:layout_width="match_parent"
+        android:layout_height="112dp"
+        android:layout_marginStart="30dp"
+
+        android:layout_marginLeft="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@color/color_pattle_bg"
+        android:fadingEdge="horizontal|vertical|none"
+        android:fadingEdgeLength="10dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:id="@+id/time_weather"
+            android:layout_width="380dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/color_pattle_bg1"
+            android:gravity="top|center"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/time_layout"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="left"
+                android:padding="10dp">
+
+                <com.caruseapp.view.MyImageView
+                    android:id="@+id/time_img"
+                    android:layout_width="52dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="top|left"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/time" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/time_img"
+                    android:text="时间"
+                    android:textColor="@color/colorTableLine"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/time_t1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_toRightOf="@+id/time_img"
+                    android:text="8888/88/88"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/time_t2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:layout_toRightOf="@+id/time_img"
+                    android:text="88:88:88"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/weather_layout"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_marginRight="10dp"
+                android:gravity="left"
+                android:padding="10dp">-
+
+                <com.caruseapp.view.MyImageView
+                    android:id="@+id/weather_img"
+                    android:layout_width="52dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="top|left"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/weather" />
+
+                <TextView
+                    android:id="@+id/weather_t"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/weather_img"
+                    android:text="天气"
+                    android:textColor="@color/colorTableLine"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/weather_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_toRightOf="@+id/weather_img"
+                    android:text="晴"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="17dp" />
+
+                <TextView
+                    android:id="@+id/temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:layout_toRightOf="@+id/weather_img"
+                    android:text="-4°"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="17dp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/step_hight"
+            android:layout_width="380dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/color_pattle_bg1"
+            android:gravity="top|center"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/step_layout"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="left"
+                android:padding="10dp">
+
+                <com.caruseapp.view.MyImageView
+                    android:id="@+id/step_img"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="top|left"
+                    android:layout_margin="5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/steps" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/step_img"
+                    android:text="步数"
+                    android:textColor="@color/colorTableLine"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/step_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_toRightOf="@+id/step_img"
+                    android:text="xxxx步"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="17dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/hight_layout"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_marginRight="10dp"
+                android:gravity="left"
+                android:padding="10dp">
+
+                <com.caruseapp.view.MyImageView
+                    android:id="@+id/hight_img"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="top|left"
+                    android:layout_margin="5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/hight" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/hight_img"
+                    android:text="高度"
+                    android:textColor="@color/colorTableLine"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/hight_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_toRightOf="@+id/hight_img"
+                    android:text="xxxxM"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="17dp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/police_state"
+            android:layout_width="380dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/color_pattle_bg1"
+            android:gravity="top|left"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/state_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_marginRight="10dp"
+                android:gravity="left"
+                android:padding="10dp">
+
+                <com.caruseapp.view.MyImageView
+                    android:id="@+id/state_img"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="top|left"
+                    android:layout_margin="5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/user_state" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/state_img"
+                    android:text="状态"
+                    android:textColor="@color/colorTableLine"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/state_text"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_toRightOf="@+id/state_img"
+                    android:text="其他"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="17dp" />
+
+                <com.caruseapp.view.MyImageView
+                    android:id="@+id/walk_img"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|left"
+                    android:layout_margin="10dp"
+
+                    android:layout_toRightOf="@+id/state_text"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/walk_ina" />
+
+                <com.caruseapp.view.MyImageView
+                    android:id="@+id/run_img"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|left"
+                    android:layout_margin="10dp"
+                    android:layout_toRightOf="@+id/walk_img"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/run_ina" />
+
+                <com.caruseapp.view.MyImageView
+                    android:id="@+id/lie_img"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|left"
+                    android:layout_margin="10dp"
+                    android:layout_toRightOf="@+id/run_img"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/tang_ina" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+<!--    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"-->
+<!--                  android:layout_marginLeft="10dp"-->
+<!--                  android:background="@color/color_pattle_bg1"-->
+<!--                  android:orientation="horizontal">-->
+<!--        <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="LA"-->
+<!--                android:textColor="@color/colorTableLine"-->
+<!--                android:textSize="12dp" />-->
+<!--        <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/latitude"-->
+<!--                android:text="LA"-->
+<!--                android:textColor="@color/colorTableLine"-->
+<!--                android:textSize="12dp" />-->
+<!--        <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Lo"-->
+<!--                android:textColor="@color/colorTableLine"-->
+<!--                android:textSize="12dp" />-->
+<!--        <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/longitude"-->
+<!--                android:text="LLL"-->
+<!--                android:textColor="@color/colorTableLine"-->
+<!--                android:textSize="12dp" />-->
+<!--        <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="indoor"-->
+<!--                android:textColor="@color/colorTableLine"-->
+<!--                android:textSize="12dp" />-->
+<!--        <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/indoor"-->
+<!--                android:text="LLL"-->
+<!--                android:textColor="@color/colorTableLine"-->
+<!--                android:textSize="12dp" />-->
+<!--    </LinearLayout>-->
+    <LinearLayout
+            android:id="@+id/map"
+            android:layout_width="1209dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:background="@color/color_pattle_bg1"
+            android:orientation="vertical" android:layout_gravity="center">
+
+        <!--            <TextView-->
+        <!--                android:id="@+id/longitude"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="30dp"-->
+        <!--                android:layout_marginTop="0dp"-->
+        <!--                android:text="longitude"-->
+        <!--                android:textColor="@color/colorLightGary"-->
+        <!--                android:textSize="20dp" />-->
+
+        <!--            <TextView-->
+        <!--                android:id="@+id/latitude"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="30dp"-->
+        <!--                android:layout_marginTop="0dp"-->
+        <!--                android:text="latitude"-->
+        <!--                android:textColor="@color/colorLightGary"-->
+        <!--                android:textSize="20dp" />-->
+
+        <com.amap.api.maps.MapView
+                android:id="@+id/map_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
