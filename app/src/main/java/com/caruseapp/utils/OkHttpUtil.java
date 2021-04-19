@@ -37,8 +37,8 @@ public class OkHttpUtil {
 
 //    private static final String SERVER_URL = "http://10.28.212.26:8089";
 //    private static final String SERVER_URL = "http://10.109.246.52:8089";
-    private MainApplication mainApplication = new MainApplication();
-    private final String SERVER_URL = mainApplication.getServerIp();
+    private static MainApplication mainApplication;
+    private static String SERVER_URL;
     /**
      * 单例引用
      */
@@ -87,6 +87,9 @@ public class OkHttpUtil {
                 }
             }
         }
+        mainApplication = (MainApplication) context.getApplicationContext();
+        SERVER_URL = mainApplication.getServerIp();
+        Log.i("SERVER_URL", SERVER_URL);
         return instance;
     }
 

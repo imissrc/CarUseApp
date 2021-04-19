@@ -265,6 +265,21 @@ public class LoginActivity extends BaseAcitvity {
         }
     }
     private void loginRequest() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+        // 加载布局
+        View serverIpView = View.inflate(this, R.layout.login_pop_ip, null);
+        builder.setView(serverIpView);
+        final EditText etServerIp = serverIpView.findViewById(R.id.et_server_ip);
+
+        String serverIp = etServerIp.getText().toString().trim();
+
+        if (!serverIp.equals("")) {
+            mainApplication.setServerAddress(serverIp);
+            // 关闭对话框
+        } else {
+            Toast.makeText(getBaseContext(), "ip不能为空", Toast.LENGTH_SHORT).show();
+        }
+
         HashMap<String,String> header = new HashMap<>();
         String ANDROID_ID = Settings.System.getString(this.getContentResolver(), Settings.System.ANDROID_ID);
 

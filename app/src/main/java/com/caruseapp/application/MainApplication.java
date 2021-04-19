@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.util.Log;
+
 import com.caruseapp.entityes.Criminal;
 import com.caruseapp.entityes.Event;
 import com.caruseapp.entityes.Task;
@@ -252,6 +254,7 @@ public class MainApplication extends Application {
     }
 
     public String getServerIp() {
+        Log.i("mainApplication", sharedPreferences.getString("serverAddress", ""));
         return sharedPreferences.getString("serverAddress", "");
     }
 
