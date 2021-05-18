@@ -28,8 +28,9 @@
             android:theme="@style/AppTheme">
         <meta-data
                 android:name="com.amap.api.v2.apikey"
-                android:value="edb241983f793e8bc6c074159595b48f">
+                android:value="b9e420b8debb387075a6d16fabc23420">
         </meta-data>
+<!--        android:value="edb241983f793e8bc6c074159595b48f">-->
 
         <service android:name=".Service.LocationService" />
 <!--        <service android:name=".Service.JWebSocketClientService$GrayInnerService"-->

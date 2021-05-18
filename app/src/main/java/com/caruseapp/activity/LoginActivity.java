@@ -45,6 +45,7 @@ public class LoginActivity extends BaseAcitvity {
     private boolean logout;
     private static final String TAG = "LoginActivity";
     private TextView changeIpTv;
+    private String serverIpAddress = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,6 +167,7 @@ public class LoginActivity extends BaseAcitvity {
                 String serverIp = etServerIp.getText().toString().trim();
                 Log.i("serverIp为", serverIp);
                 if (!serverIp.equals("")) {
+                    serverIpAddress = serverIp;
                     mainApplication.setServerAddress(serverIp);
                     // 关闭对话框
                     dialog.dismiss();
@@ -265,21 +267,24 @@ public class LoginActivity extends BaseAcitvity {
         }
     }
     private void loginRequest() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-        // 加载布局
-        View serverIpView = View.inflate(this, R.layout.login_pop_ip, null);
-        builder.setView(serverIpView);
-        final EditText etServerIp = serverIpView.findViewById(R.id.et_server_ip);
+        if (serverIpAddress.equals("")) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+            // 加载布局
+            View serverIpView = View.inflate(this, R.layout.login_pop_ip, null);
+            builder.setView(serverIpView);
+            final EditText etServerIp = serverIpView.findViewById(R.id.et_server_ip);
 
-        String serverIp = etServerIp.getText().toString().trim();
+            String serverIp = etServerIp.getText().toString().trim();
 
-        if (!serverIp.equals("")) {
-            mainApplication.setServerAddress(serverIp);
-            // 关闭对话框
-        } else {
-            Toast.makeText(getBaseContext(), "ip不能为空", Toast.LENGTH_SHORT).show();
+            if (!serverIp.equals("")) {
+                mainApplication.setServerAddress(serverIp);
+                // 关闭对话框
+            } else {
+                Toast.makeText(getBaseContext(), "ip不能为空", Toast.LENGTH_SHORT).show();
+            }
         }
 
+        Log.i("serverIp为", mainApplication.getServerIp());
         HashMap<String,String> header = new HashMap<>();
         String ANDROID_ID = Settings.System.getString(this.getContentResolver(), Settings.System.ANDROID_ID);
 
@@ -291,6 +296,7 @@ public class LoginActivity extends BaseAcitvity {
         mainApplication.setDeviceNo(ANDROID_ID);
 //                    params.put("prisonerId", prisonerIdEt.getText().toString());
         params.put("password", pwdEt.getText().toString());
+
         OkHttpUtil.getInstance(getBaseContext()).requestAsyn("users/login", TYPE_LOG_REGISTER, params,header, new OkHttpUtil.ReqCallBack<String>() {
             @Override
 
