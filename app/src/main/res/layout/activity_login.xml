@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="230dp"
-            android:text="Edge Computing"
+            android:text="边缘定位平台"
             android:textColor="#000"
             android:textSize="30sp"
             android:typeface="monospace" android:gravity="center" android:layout_centerInParent="false"
@@ -208,16 +208,17 @@
                 android:textColor="@color/colorLoginButton"
                 android:layout_toRightOf="@id/divide_line"
                 android:textSize="20sp"/>
+<!--        0，100-->
         <View
             android:id="@+id/divide_line_two"
-            android:layout_width="1dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_toRightOf="@+id/tv_register"
             android:background="@color/divideLine" />
 
         <TextView
             android:id="@+id/tv_change_ip"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_toRightOf="@id/divide_line_two"
             android:gravity="center"

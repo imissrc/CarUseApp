@@ -67,6 +67,7 @@ import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.*;
 
+
 public class MainActivity extends BaseAcitvity implements NavigationView.OnNavigationItemSelectedListener {
 
     private MainApplication mainApplication;
@@ -421,6 +422,8 @@ public class MainActivity extends BaseAcitvity implements NavigationView.OnNavig
 
 
                             latLngs.add(new LatLng(latitude_v,longitude_v));
+                            Log.e("GPS lat1111",latLngs.get(0).toString());
+                            Log.e("GPS lng2222",latLngs.get(latLngs.size() - 1).toString());
                             LatLngBounds bounds = new LatLngBounds(latLngs.get(0), latLngs.get(latLngs.size() - 1));
                             aMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
                             aMap.clear();

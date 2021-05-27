@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">CarUseApp</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="app_name">边缘定位平台</string>
+    <string name="navigation_drawer_open">打开侧边导航栏</string>
+    <string name="navigation_drawer_close">关闭侧边导航栏</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
@@ -54,9 +54,10 @@
     <string name="popup_message">Do you want to quit this Application?</string>
     <string name="popup_yes">YES</string>
     <string name="popup_no">NO</string>
-    <string name="ble_not_supported">Bluetooth Low Energy not supported</string>
+    <string name="ble_not_supported">不支持低功耗蓝牙</string>
     <string name="scan">Scan</string>
-    <string name="cancel">Cancel</string>
-    <string name="server_ip">服务器Ip</string>
+    <string name="cancel">曲线</string>
+    <string name="server_ip">服务器IP</string>
+<!--    <string name="localhost">http://192.168.3.200:8089</string>-->
     <string name="localhost">http://10.112.55.242:8089</string>
 </resources>

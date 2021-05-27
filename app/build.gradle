@@ -79,4 +79,5 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 //    implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.github.huangyanbin:SmartTable:2.2.0'
+//    implementation 'org.springframework.android:spring-android-rest-template: 2.0.0.M1'
 }
