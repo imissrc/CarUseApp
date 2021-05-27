@@ -59,14 +59,21 @@ import interfaces.heweather.com.interfacesmodule.bean.weather.now.Now;
 import interfaces.heweather.com.interfacesmodule.bean.weather.now.NowBase;
 import interfaces.heweather.com.interfacesmodule.view.HeConfig;
 import interfaces.heweather.com.interfacesmodule.view.HeWeather;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 import org.achartengine.GraphicalView;
 
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.*;
-
+//import org.springframework.web.client.RestTemplate;
 
 public class MainActivity extends BaseAcitvity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -114,6 +121,35 @@ public class MainActivity extends BaseAcitvity implements NavigationView.OnNavig
     private LocationService locationService;
     private LatLonPoint preLocation;
     private LatLonPoint curLocation;
+    private final String amapKey = "755a724bbb2970822e0df221ec657bf2";
+
+    public String getAdjustLocation(String url) {
+            Log.e("start adjust GPS", url);
+            OkHttpClient okHttpClient = new OkHttpClient();
+            final Request request = new Request.Builder().url(url).build();
+            //创建一个Call
+            final Call call = okHttpClient.newCall(request);
+            final String[] location = {""};
+
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+                    try {
+                        //执行请求
+                        final String response = call.execute().toString();
+                        Log.e("GPS response", response);
+                        JSONObject resObject = JSONObject.parseObject(response);
+                        location[0] =  resObject.getString("locations");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        location[0] = "";
+                    }
+//                }
+//            }).start();
+            Log.e("new locations: ", location[0].toString());
+            return location[0];
+    }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -417,11 +453,18 @@ public class MainActivity extends BaseAcitvity implements NavigationView.OnNavig
                                 params.put("isIndoor",String.valueOf(false));
                             }
                             curLocation = new LatLonPoint(latitude_v,longitude_v);
-//                            Marker marker = aMap.addMarker(new MarkerOptions().position(new LatLng(latitude_v,longitude_v)).snippet("DefaultMarker"));
+                            Marker marker = aMap.addMarker(new MarkerOptions().position(new LatLng(latitude_v,longitude_v)).snippet("DefaultMarker"));
 
 
+                            String locationStr = Double.toString(latitude_v) + "," + Double.toString(longitude_v);
 
-                            latLngs.add(new LatLng(latitude_v,longitude_v));
+                            String adjustGpsUrl = "https://restapi.amap.com/v3/assistant/coordinate/convert?key=" + amapKey + "&locations=" + locationStr + "&coordsys=gps";
+                            Log.e("adjustUrl", adjustGpsUrl);
+                            String location = getAdjustLocation(adjustGpsUrl);
+                            String[] pos = location.split(",");
+
+                            latLngs.add(new LatLng(Double.parseDouble(pos[0]),Double.parseDouble(pos[1])));
+//                            latLngs.add(new LatLng(latitude_v,longitude_v));
                             Log.e("GPS lat1111",latLngs.get(0).toString());
                             Log.e("GPS lng2222",latLngs.get(latLngs.size() - 1).toString());
                             LatLngBounds bounds = new LatLngBounds(latLngs.get(0), latLngs.get(latLngs.size() - 1));
