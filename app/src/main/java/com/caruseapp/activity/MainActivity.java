@@ -60,11 +60,13 @@ import interfaces.heweather.com.interfacesmodule.bean.weather.now.NowBase;
 import interfaces.heweather.com.interfacesmodule.view.HeConfig;
 import interfaces.heweather.com.interfacesmodule.view.HeWeather;
 import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 import org.achartengine.GraphicalView;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -121,34 +123,113 @@ public class MainActivity extends BaseAcitvity implements NavigationView.OnNavig
     private LocationService locationService;
     private LatLonPoint preLocation;
     private LatLonPoint curLocation;
-    private final String amapKey = "755a724bbb2970822e0df221ec657bf2";
+    private final String amapKey = "54e709ea82fec2e7e9eff79ffd51d1fc";
 
     public String getAdjustLocation(String url) {
-            Log.e("start adjust GPS", url);
-            OkHttpClient okHttpClient = new OkHttpClient();
-            final Request request = new Request.Builder().url(url).build();
-            //创建一个Call
-            final Call call = okHttpClient.newCall(request);
-            final String[] location = {""};
+        Log.e("start adjust GPS", url);
+        OkHttpClient okHttpClient = new OkHttpClient();
+        final Request request = new Request.Builder().url(url).build();
+        //创建一个Call
+        final Call call = okHttpClient.newCall(request);
+        final String[] location = {""};
 
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-                    try {
-                        //执行请求
-                        final String response = call.execute().toString();
-                        Log.e("GPS response", response);
-                        JSONObject resObject = JSONObject.parseObject(response);
-                        location[0] =  resObject.getString("locations");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        location[0] = "";
-                    }
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+            try {
+                //执行请求
+                Response response = call.execute();
+                Log.e("GPS response", response.body().toString());
+                JSONObject resObject = JSONObject.parseObject(response.body().toString());
+                location[0] = resObject.getString("locations");
+            } catch (IOException e) {
+                e.printStackTrace();
+                location[0] = "";
+            }
 //                }
 //            }).start();
-            Log.e("new locations: ", location[0].toString());
-            return location[0];
+        Log.e("new locations: ", location[0].toString());
+        return location[0];
     }
+
+//    public String getAdjustLocation(String url) {
+//            Log.e("start adjust GPS", url);
+//            OkHttpClient okHttpClient = new OkHttpClient();
+//            final Request request = new Request.Builder().url(url).build();
+//            //创建一个Call
+//            final Call call = okHttpClient.newCall(request);
+//            final String[] location = {""};
+//
+//            call.enqueue(new Callback() {
+//                @Override
+//                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+//                    Log.e("failure", e.toString());
+//                }
+//
+//                @Override
+//                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+//                    if (response.isSuccessful()) {
+//                        String result = response.body().string();
+//                        Log.e("result", result);
+//                        JSONObject resObject = JSONObject.parseObject(result);
+//                        Log.e("resObject", String.valueOf(resObject));
+//                        location[0] =  resObject.getString("locations");
+//                    }
+//                }
+//            });
+//            Log.e("new locations: ", location[0]);
+//            return location[0];
+//    }
+
+
+//    public String getAdjustLocation(String url) {
+//
+//        OkHttpUtil.getInstance(getBaseContext()).requestGetByAsynByOwnUrl(url, new OkHttpUtil.ReqCallBack<String>() {
+//            final String[] location = {""};
+//
+//            @Override
+//            public void onReqSuccess(String result) {
+//
+//                Log.e("result", result);
+//                JSONObject resObject = JSONObject.parseObject(result);
+//                Log.e("resObject", String.valueOf(resObject));
+//                location[0] =  resObject.getString("locations");
+//            }
+//
+//            @Override
+//            public void onReqFailed(String errorMsg) {
+//                Log.e(TAG, errorMsg);
+//                Toast.makeText(getBaseContext(), errorMsg, Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//            Log.e("start adjust GPS", url);
+//            OkHttpClient okHttpClient = new OkHttpClient();
+//            final Request request = new Request.Builder().url(url).build();
+//            //创建一个Call
+//            final Call call = okHttpClient.newCall(request);
+//            final String[] location = {""};
+//
+//            call.enqueue(new Callback() {
+//                @Override
+//                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+//                    Log.e("failure", e.toString());
+//                }
+//
+//                @Override
+//                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+//                    if (response.isSuccessful()) {
+//                        String result = response.body().string();
+//                        Log.e("result", result);
+//                        JSONObject resObject = JSONObject.parseObject(result);
+//                        Log.e("resObject", String.valueOf(resObject));
+//                        location[0] =  resObject.getString("locations");
+//                    }
+//                }
+//            });
+//            Log.e("new locations: ", location[0]);
+//            return location[0];
+//    }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -456,19 +537,47 @@ public class MainActivity extends BaseAcitvity implements NavigationView.OnNavig
                             Marker marker = aMap.addMarker(new MarkerOptions().position(new LatLng(latitude_v,longitude_v)).snippet("DefaultMarker"));
 
 
-                            String locationStr = Double.toString(latitude_v) + "," + Double.toString(longitude_v);
+                            String locationStr = Double.toString(longitude_v) + "," + Double.toString(latitude_v);
 
                             String adjustGpsUrl = "https://restapi.amap.com/v3/assistant/coordinate/convert?key=" + amapKey + "&locations=" + locationStr + "&coordsys=gps";
                             Log.e("adjustUrl", adjustGpsUrl);
-                            String location = getAdjustLocation(adjustGpsUrl);
-                            String[] pos = location.split(",");
+//                            String location = getAdjustLocation(adjustGpsUrl);
+//                            Log.e("location111", location);
+//                            final String[] location = {""};
+                            final double[] newLatitude_v = {latitude_v};
+                            final double[] newLongitude_v = {longitude_v};
+                            OkHttpUtil.getInstance(getBaseContext()).requestGetByAsynByOwnUrl(adjustGpsUrl, new OkHttpUtil.ReqCallBack<String>() {
+                                @Override
+                                public void onReqSuccess(String result) {
 
-                            latLngs.add(new LatLng(Double.parseDouble(pos[0]),Double.parseDouble(pos[1])));
-//                            latLngs.add(new LatLng(latitude_v,longitude_v));
-                            Log.e("GPS lat1111",latLngs.get(0).toString());
-                            Log.e("GPS lng2222",latLngs.get(latLngs.size() - 1).toString());
-                            LatLngBounds bounds = new LatLngBounds(latLngs.get(0), latLngs.get(latLngs.size() - 1));
-                            aMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+                                    Log.e("result", result);
+                                    String[] pos = result.split(",");
+                                    Log.e("pos[0]", pos[0]);
+                                    Log.e("pos[1]", pos[1]);
+                                    newLongitude_v[0] = Double.parseDouble(pos[0]);
+                                    newLatitude_v[0] = Double.parseDouble(pos[1]);
+                                    latLngs.add(new LatLng(newLatitude_v[0],newLongitude_v[0]));
+                                }
+
+                                @Override
+                                public void onReqFailed(String errorMsg) {
+                                    Log.e(TAG, errorMsg);
+                                    Toast.makeText(getBaseContext(), errorMsg, Toast.LENGTH_SHORT).show();
+                                    latLngs.add(new LatLng(newLatitude_v[0],newLongitude_v[0]));
+                                }
+                            });
+//                            String[] pos = location.split(",");
+
+//                            Log.e("pos[0]", pos[0]);
+//                            Log.e("pos[1]", pos[1]);
+//                            newLongitude_v[0] = Double.parseDouble(pos[0]);
+//                            newLatitude_v[0] = Double.parseDouble(pos[1]);
+
+//                            latLngs.add(new LatLng(newLatitude_v[0],newLongitude_v[0]));
+//                            Log.e("GPS lat1111",latLngs.get(0).toString());
+//                            Log.e("GPS lng2222",latLngs.get(latLngs.size() - 1).toString());
+//                            LatLngBounds bounds = new LatLngBounds(latLngs.get(0), latLngs.get(latLngs.size() - 1));
+//                            aMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
                             aMap.clear();
                             aMap.addPolyline(new PolylineOptions().
                                     addAll(latLngs).width(10).setUseTexture(true).setCustomTexture(mBlueTexture));

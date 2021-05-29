@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSONObject;
 import com.caruseapp.application.MainApplication;
 
 import okhttp3.*;
@@ -314,6 +315,65 @@ public class OkHttpUtil {
             return call;
         } catch (Exception e) {
             Log.e(TAG,paramsMap.toString()+"====="+ e.toString());
+        }
+        return null;
+    }
+
+    private String requestGetBySynByOwnUrl(String actionUrl) {
+        final String[] location = {""};
+        try {
+            Log.e("start adjust GPS", actionUrl);
+            OkHttpClient okHttpClient = new OkHttpClient();
+            final Request request = new Request.Builder().url(actionUrl).build();
+
+
+            //创建一个Call
+            final Call call = mOkHttpClient.newCall(request);
+            //执行请求
+            final Response response = call.execute();
+            String result = response.body().string();
+            Log.e("result", result);
+            JSONObject resObject = JSONObject.parseObject(result);
+            Log.e("resObject", String.valueOf(resObject));
+            location[0] =  resObject.getString("locations");
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+        return location[0];
+    }
+
+    public <T> Call requestGetByAsynByOwnUrl(String actionUrl, final ReqCallBack<T> callBack) {
+        try {
+            Log.e("start adjust GPS", actionUrl);
+            OkHttpClient okHttpClient = new OkHttpClient();
+            final Request request = new Request.Builder().url(actionUrl).build();
+            //创建一个Call
+            final Call call = okHttpClient.newCall(request);
+            final String[] location = {""};
+
+            // 异步执行请求，callback回调函数
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    failedCallBack("访问失败", callBack);
+                    Log.e(TAG, e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (response.isSuccessful()) {
+                        String result = response.body().string();
+                        Log.e("result", result);
+                        JSONObject resObject = JSONObject.parseObject(result);
+                        Log.e("resObject", String.valueOf(resObject));
+                        location[0] =  resObject.getString("locations");
+                        successCallBack((T) location[0], callBack);
+                    }
+                }
+            });
+            return call;
+        } catch (Exception e) {
+            Log.e(TAG,"Gps request error");
         }
         return null;
     }
