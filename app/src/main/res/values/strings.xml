@@ -58,6 +58,6 @@
     <string name="scan">Scan</string>
     <string name="cancel">曲线</string>
     <string name="server_ip">服务器IP</string>
-<!--    <string name="localhost">http://192.168.3.200:8089</string>-->
-    <string name="localhost">http://10.112.55.242:8089</string>
+    <string name="localhost">http://192.168.3.200:8089</string>
+<!--    <string name="localhost">http://10.112.55.242:8089</string>-->
 </resources>

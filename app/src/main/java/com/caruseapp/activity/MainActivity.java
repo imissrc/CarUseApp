@@ -309,12 +309,34 @@ public class MainActivity extends BaseAcitvity implements NavigationView.OnNavig
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HashMap<String,String> head = new HashMap<>();
-                head.put("token",mainApplication.getToken());
-                mainApplication.setLogin(false);
-//                http
-                Intent intent = new Intent("com.gesoft.admin.loginout");
-                sendBroadcast(intent);
+
+                HashMap<String, String> header = new HashMap<>();
+                header.put("token", mainApplication.getToken());
+                HashMap<String, String> params = new HashMap<>();
+                params.put("deviceNo", mainApplication.getDeviceNo());
+                Log.i("准备登出", params.get("deviceNo"));
+
+                OkHttpUtil.getInstance(getBaseContext()).requestAsyn("/devices/logout", OkHttpUtil.TYPE_GET, params, header, new OkHttpUtil.ReqCallBack<String>() {
+                    @Override
+
+                    public void onReqSuccess(String result) {
+                        if(JSON.parseObject(result).getInteger("code") == 200) {
+
+                        } else {
+                            Toast.makeText(getBaseContext(), JSON.parseObject(result).getString("message"), Toast.LENGTH_SHORT).show();
+
+                        }
+                        mainApplication.setLogin(false);
+                        Intent intent = new Intent("com.gesoft.admin.loginout");
+                        sendBroadcast(intent);
+                    }
+
+                    @Override
+                    public void onReqFailed(String errorMsg) {
+                        Log.e(TAG, errorMsg);
+                        Toast.makeText(getBaseContext(), errorMsg, Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
         });
