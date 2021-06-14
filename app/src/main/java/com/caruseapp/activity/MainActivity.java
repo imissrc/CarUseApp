@@ -321,7 +321,7 @@ public class MainActivity extends BaseAcitvity implements NavigationView.OnNavig
 
                     public void onReqSuccess(String result) {
                         if(JSON.parseObject(result).getInteger("code") == 200) {
-
+                            Toast.makeText(getBaseContext(), JSON.parseObject(result).getString("message"), Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getBaseContext(), JSON.parseObject(result).getString("message"), Toast.LENGTH_SHORT).show();
 
